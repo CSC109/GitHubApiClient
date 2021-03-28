@@ -1,7 +1,4 @@
 name: GitHubApiClient
-title: GitHub Api Client
-description: Client for easy calls to GitHub API
-show_downloads: false
+title: null
 plugins:
   - jemoji
-theme: jekyll-theme-cayman
