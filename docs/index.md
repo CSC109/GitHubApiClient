@@ -59,7 +59,7 @@ You can extract certain values from the JSON response using GSON's `JsonObject` 
 Below will get the `description` field's value:
 ```java
 GitHubApiClient gitHubApiClient = new GitHubApiClient(username, password);
-JsonObject repoInfo = gitHubApiClient.getRepoInfo("a-r-t", "GitHubApiClient");
+JsonObject repoInfo = gitHubApiClient.getRepoInfo("CSC109", "GitHubApiClient");
 String description = repoInfo.get("description");
 System.out.println(description); // will print out "Client for easy calls to GitHub API"
 ```
@@ -67,7 +67,7 @@ System.out.println(description); // will print out "Client for easy calls to Git
 Below will get the `login` field's value (which is the user that created the repo):
 ```java
 GitHubApiClient gitHubApiClient = new GitHubApiClient(username, password);
-JsonObject repoInfo = gitHubApiClient.getRepoInfo("a-r-t", "GitHubApiClient");
+JsonObject repoInfo = gitHubApiClient.getRepoInfo("CSC109", "GitHubApiClient");
 String login = repoInfo.get("owner").getAsJsonObject().get("login");
 System.out.println(login); // will print out "CSC109"
 ```
