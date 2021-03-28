@@ -3,3 +3,8 @@ title: null
 plugins:
   - jemoji
 theme: minima
+minima:
+  skin: dark
+header_pages:
+  - index.md
+  - access-token.md
