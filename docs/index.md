@@ -13,7 +13,7 @@ This repo contains a collection of classes that will allow for easy calls out to
 ## Authentication
 
 For authentication, which GitHub requires in order to use their API, you need to generate a GitHub API token for your account.
-[Here](./access-token) describes how to generate an access token.
+Click [here](./access-token) to learn how to generate an access token.
 
 ## Usage
 
