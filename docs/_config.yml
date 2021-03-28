@@ -2,4 +2,4 @@ name: GitHubApiClient
 title: null
 plugins:
   - jemoji
-remote_theme: "dracula/gj-pages"
+remote_theme: "dracula/gh-pages"
