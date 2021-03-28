@@ -4,4 +4,4 @@ description: Client for easy calls to GitHub API
 show_downloads: false
 plugins:
   - jemoji
-theme: jekyll-theme-slate
+theme: jekyll-theme-cayman
