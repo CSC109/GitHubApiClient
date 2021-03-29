@@ -1,7 +1,9 @@
 [Home](./)
 
 # GitHub Api Client Methods Overview
+{:.no_toc}
 
+Table of Contents
 {:toc}
 
 ## Create Client Object Instance
