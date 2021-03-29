@@ -76,14 +76,14 @@ public class GitHubApiClient {
         return new RenameBranchInRepoResponse((JsonObject) response.getBody());
     }
 
-    // https://docs.github.com/en/rest/reference/repos#check-if-a-user-is-a-repository-collaborator
+    // https://docs.github.com/en/rest/reference/repos#list-repository-collaborators
     public ListRepoCollaboratorsResponse listRepoCollaborators(String repoOwner, String repoName) {
         String endpoint = String.format("%s/repos/%s/%s/collaborators", baseUrl, repoOwner, repoName);
         Response response = HttpRequest.get(endpoint, null, basicAuth);
         return new ListRepoCollaboratorsResponse((JsonArray) response.getBody());
     }
 
-    // https://docs.github.com/en/rest/reference/repos#list-repository-collaborators
+    // https://docs.github.com/en/rest/reference/repos#check-if-a-user-is-a-repository-collaborator
     public boolean isUserACollaboratorInRepo(String repoOwner, String repoName, String username) {
         try {
             String endpoint = String.format("%s/repos/%s/%s/collaborators/%s", baseUrl, repoOwner, repoName, username);
