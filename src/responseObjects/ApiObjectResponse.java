@@ -9,7 +9,6 @@ public class ApiObjectResponse {
 
     public ApiObjectResponse(JsonObject json) {
         this.json = json;
-        mapParams(json);
     }
 
     public JsonObject getJson() {
@@ -21,6 +20,4 @@ public class ApiObjectResponse {
         String formatted = gson.toJson(json);
         System.out.println(formatted);
     }
-
-    public void mapParams(JsonObject json) {}
 }

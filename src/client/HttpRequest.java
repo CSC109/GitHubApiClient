@@ -160,7 +160,8 @@ public class HttpRequest {
                 conn.setRequestProperty("Authorization", basicAuth.toAuthHeader());
             }
 
-            conn.setRequestMethod("PATCH");
+            conn.setRequestProperty("X-HTTP-Method-Override", "PATCH");
+            conn.setRequestMethod("POST");
 
 
             if (params != null) {

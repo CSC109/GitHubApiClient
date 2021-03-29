@@ -12,9 +12,9 @@ public class ListCommitsInRepoResponse extends ApiArrayResponse {
 
     public ListCommitsInRepoResponse(JsonArray json) {
         super(json);
+        mapParams(json);
     }
 
-    @Override
     public void mapParams(JsonArray json) {
         for (int i = 0; i < json.size(); i++) {
             String commitHash = json.get(i).getAsJsonObject().get("sha").getAsString();

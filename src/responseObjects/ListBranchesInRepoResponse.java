@@ -9,9 +9,9 @@ public class ListBranchesInRepoResponse extends ApiArrayResponse {
 
     public ListBranchesInRepoResponse(JsonArray json) {
         super(json);
+        mapParams(json);
     }
 
-    @Override
     public void mapParams(JsonArray json) {
         for (int i = 0; i < json.size(); i++) {
             String name = json.get(i).getAsJsonObject().get("name").getAsString();

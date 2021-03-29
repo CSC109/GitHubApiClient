@@ -49,8 +49,8 @@ public class GitHubApiClient {
     }
 
     // https://docs.github.com/en/rest/reference/repos#list-repositories-for-a-user
-    public ListReposResponse listRepos(String username, QueryParams queryParams) {
-        String endpoint = String.format("%s/users/%s/repos", baseUrl, username);
+    public ListReposResponse listRepos(QueryParams queryParams) {
+        String endpoint = String.format("%s/user/repos", baseUrl);
         Response response = HttpRequest.get(endpoint, queryParams, basicAuth);
         return new ListReposResponse((JsonArray) response.getBody());
     }
@@ -130,6 +130,27 @@ public class GitHubApiClient {
         String endpoint = String.format("%s/repos/%s/%s/commits/%s", baseUrl, repoOwner, repoName, commitHash);
         Response response = HttpRequest.get(endpoint, queryParams, basicAuth);
         return new GetCommitResponse((JsonObject)response.getBody());
+    }
+
+    // https://docs.github.com/en/rest/reference/repos#list-repository-languages
+    public ListRepoLanguagesResponse listRepoLanguages(String repoOwner, String repoName) {
+        String endpoint = String.format("%s/repos/%s/%s/languages", baseUrl, repoOwner, repoName);
+        Response response = HttpRequest.get(endpoint, null, basicAuth);
+        return new ListRepoLanguagesResponse((JsonObject)response.getBody());
+    }
+
+    // https://docs.github.com/en/rest/reference/users#get-a-user
+    public GetUserResponse getUser(String username) {
+        String endpoint = String.format("%s/users/%s", baseUrl, username);
+        Response response = HttpRequest.get(endpoint, null, basicAuth);
+        return new GetUserResponse((JsonObject)response.getBody());
+    }
+
+    // https://docs.github.com/en/rest/reference/users#update-the-authenticated-user
+    public UpdateUserResponse updateUser(RequestParams requestParams) {
+        String endpoint = String.format("%s/user", baseUrl);
+        Response response = HttpRequest.patch(endpoint, requestParams, basicAuth);
+        return new UpdateUserResponse((JsonObject)response.getBody());
     }
 }
 

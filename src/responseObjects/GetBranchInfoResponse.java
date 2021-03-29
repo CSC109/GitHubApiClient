@@ -17,9 +17,9 @@ public class GetBranchInfoResponse extends ApiObjectResponse {
 
     public GetBranchInfoResponse(JsonObject json) {
         super(json);
+        mapParams(json);
     }
 
-    @Override
     public void mapParams(JsonObject json) {
         name = json.get("name").getAsString();
         latestCommitHash = json.get("commit").getAsJsonObject().get("sha").getAsString();
@@ -37,6 +37,22 @@ public class GetBranchInfoResponse extends ApiObjectResponse {
 
     public String getLatestCommitHash() {
         return latestCommitHash;
+    }
+
+    public String getLatestCommitAuthorName() {
+        return latestCommitAuthorName;
+    }
+
+    public String getLatestCommitAuthorEmail() {
+        return latestCommitAuthorEmail;
+    }
+
+    public String getLatestCommitMessage() {
+        return latestCommitMessage;
+    }
+
+    public LocalDateTime getLatestCommitTimestamp() {
+        return latestCommitTimestamp;
     }
 
     public boolean isProtected() {

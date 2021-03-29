@@ -9,7 +9,6 @@ public class ApiArrayResponse {
 
     public ApiArrayResponse(JsonArray json) {
         this.json = json;
-        mapParams(json);
     }
 
     public JsonArray getJson() {
@@ -21,6 +20,4 @@ public class ApiArrayResponse {
         String formatted = gson.toJson(json);
         System.out.println(formatted);
     }
-
-    public void mapParams(JsonArray json) { }
 }

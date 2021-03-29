@@ -21,9 +21,9 @@ public class GetCommitResponse extends ApiObjectResponse {
 
     public GetCommitResponse(JsonObject json) {
         super(json);
+        mapParams(json);
     }
 
-    @Override
     public void mapParams(JsonObject json) {
         commitHash = json.get("sha").getAsString();
         commitUrl = json.get("html_url").getAsString();

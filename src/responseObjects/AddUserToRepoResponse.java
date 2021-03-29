@@ -19,9 +19,9 @@ public class AddUserToRepoResponse extends ApiObjectResponse {
 
     public AddUserToRepoResponse(JsonObject json) {
         super(json);
+        mapParams(json);
     }
 
-    @Override
     public void mapParams(JsonObject json) {
         repoName = json.get("repository").getAsJsonObject().get("name").getAsString();
         repoFullName = json.get("repository").getAsJsonObject().get("full_name").getAsString();

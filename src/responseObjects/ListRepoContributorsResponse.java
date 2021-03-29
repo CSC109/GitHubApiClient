@@ -9,9 +9,9 @@ public class ListRepoContributorsResponse extends ApiArrayResponse {
 
     public ListRepoContributorsResponse(JsonArray json) {
         super(json);
+        mapParams(json);
     }
 
-    @Override
     public void mapParams(JsonArray json) {
         for (int i = 0; i < json.size(); i++) {
             String username = json.get(i).getAsJsonObject().get("login").getAsString();

@@ -18,16 +18,20 @@ public class UpdateRepoResponse extends ApiObjectResponse {
 
     public UpdateRepoResponse(JsonObject json) {
         super(json);
+        mapParams(json);
     }
 
-    @Override
     public void mapParams(JsonObject json) {
         repoName = json.get("name").getAsString();
         repoFullName = json.get("full_name").getAsString();
         ownerName = json.get("owner").getAsJsonObject().get("login").getAsString();
         ownerUrl = json.get("owner").getAsJsonObject().get("html_url").getAsString();
         isPrivate = json.get("private").getAsBoolean();
-        description = json.get("description").getAsString();
+        if (!json.get("description").isJsonNull()) {
+            description = json.get("description").getAsString();
+        } else {
+            description = "";
+        }
         url = json.get("html_url").getAsString();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
         createdTimestamp = LocalDateTime.parse(json.get("created_at").getAsString(), formatter);
