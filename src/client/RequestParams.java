@@ -1,3 +1,5 @@
+package client;
+
 import com.google.gson.Gson;
 
 import java.util.LinkedHashMap;
@@ -11,6 +13,17 @@ public class RequestParams {
 
     public void addParam(String key, Object value) {
         params.put(key, value);
+    }
+
+    public Object getParam(String key) {
+        if (params.containsKey(key)) {
+            return params.get(key);
+        }
+        return null;
+    }
+
+    public boolean doesParamExist(String key) {
+        return params.containsKey(key);
     }
 
     public String toJsonString() {
