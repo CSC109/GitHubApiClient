@@ -3,7 +3,7 @@
 # GitHub Api Client Methods Overview
 {:.no_toc}
 
-Table of Contents
+* auto-gen TOC:
 {:toc}
 
 ## Create Client Object Instance
