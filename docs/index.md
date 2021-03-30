@@ -2,13 +2,11 @@
 
 ## What is this?
 
-This repo contains a collection of classes that will allow for easy calls out to the [GitHub API](https://docs.github.com/en).
+This package contains a collection of classes that will allow for easy calls out to the [GitHub API](https://docs.github.com/en).
 
 ## Requirements
 
 - Java 8 or higher
-- [GSON package](https://repo1.maven.org/maven2/com/google/code/gson/gson/2.8.6/gson-2.8.6.jar)
-    - Place GSON `.jar` file in project build path
 
 ## Authentication
 
