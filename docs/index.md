@@ -30,6 +30,13 @@ GitHubApiClient gitHubApiClient = new GitHubApiClient(username, password);
 GetRepoInfoResponse repoInfo = gitHubApiClient.getRepoInfo("CSC109", "GitHubApiClient");
 ```
 
+Required imports:
+
+```java
+import github.tools.client.GitHubApiClient;
+import github.tools.responseObjects.*;
+```
+
 Click [here](./methods-overview) for descriptions/examples for each GitHub Api Client method.
 
 
