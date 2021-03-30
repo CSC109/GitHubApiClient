@@ -23,14 +23,8 @@ jobs:
       - name: Create JAR
         run: |
           echo ${{ github.sha }} > Release.txt
-          mkdir -p "out/github/tools/client" "out/github/tools/responseObjects"
-          cp -a src/github/tools/client/. out/github/tools/client/
-          cp -a src/github/tools/responseObjects/. out/github/tools/responseObjects/
-          cd out
-          javac github/tools/client/*.java github/tools/responseObjects/*.java
-          jar cf GitHubApiClient.jar github/tools/client/*.class github/tools/responseObjects/*.class
-          cd ..
-          cp out/GitHubApiClient.jar ./GitHubApiClient-${{ env.RELEASE_VERSION }}.jar
+          mvn package
+          cp target/GitHubApiClient-0.0.1-jar-with-dependencies.jar ./GitHubApiClient-${{ env.RELEASE_VERSION }}.jar
       - name: Test
         run: cat Release.txt
       - name: Release
