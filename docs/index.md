@@ -15,10 +15,10 @@ Click [here](./access-token) to learn how to generate an access token.
 
 ## Usage
 
-A GitHubApiClient object instance can be created like so, where `username` is your GitHub username and `password` is your GitHub API access token:
+A GitHubApiClient object instance can be created like so, where `user` is your GitHub username and `token` is your GitHub API access token:
 
 ```java
-GitHubApiClient gitHubApiClient = new GitHubApiClient(username, password);
+GitHubApiClient gitHubApiClient = new GitHubApiClient(user, token);
 ```
 
 From here, you can call any of the available methods to get a response from GitHub with the desired info.
@@ -26,7 +26,7 @@ For example, if you wanted to get info about a repo, you would call the `getRepo
 The below will return info for this repo:
 
 ```java
-GitHubApiClient gitHubApiClient = new GitHubApiClient(username, password);
+GitHubApiClient gitHubApiClient = new GitHubApiClient(user, token);
 GetRepoInfoResponse repoInfo = gitHubApiClient.getRepoInfo("CSC109", "GitHubApiClient");
 ```
 

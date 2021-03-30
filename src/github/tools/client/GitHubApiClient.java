@@ -5,11 +5,19 @@ import com.google.gson.JsonObject;
 import github.tools.responseObjects.*;
 
 public class GitHubApiClient {
-    private String baseUrl = "https://api.github.com";
+    private final String baseUrl = "https://api.github.com";
     private BasicAuth basicAuth;
 
-    public GitHubApiClient(String user, String password) {
-        this.basicAuth = new BasicAuth(user, password);
+    public GitHubApiClient(String user, String token) {
+        this.basicAuth = new BasicAuth(user, token);
+    }
+
+    public void setUser(String user) {
+        this.basicAuth = new BasicAuth(user, this.basicAuth.getPassword());
+    }
+
+    public void setToken(String token) {
+        this.basicAuth = new BasicAuth(this.basicAuth.getUser(), token);
     }
 
     // https://docs.github.com/en/rest/reference/repos#create-a-repository-for-the-authenticated-user

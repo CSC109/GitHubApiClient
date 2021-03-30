@@ -9,8 +9,10 @@
 ## Create Client Object Instance
 
 ```java
-GitHubApiClient gitHubApiClient = new GitHubApiClient(username, password);
+GitHubApiClient gitHubApiClient = new GitHubApiClient(user, token);
 ```
+
+The `user` and `token` can be changed anytime using the setter methods.
 
 ## Response Objects
 
@@ -20,7 +22,7 @@ These response objects parse through what GitHub sends back and maps certain fie
 For example, `GetRepoInfoResponse` has a `description` field:
 
 ```java
-GitHubApiClient gitHubApiClient = new GitHubApiClient(username, password);
+GitHubApiClient gitHubApiClient = new GitHubApiClient(user, token);
 GetRepoInfoResponse repoInfo = gitHubApiClient.getRepoInfo("CSC109", "GitHubApiClient");
 System.out.println(repoInfo.getDescription());
 ```
@@ -53,7 +55,7 @@ A piece of the JSON response from the above call looks like this:
 You can print the full response out using the `printJson()` method on every response object:
 
 ```java
-GitHubApiClient gitHubApiClient = new GitHubApiClient(username, password);
+GitHubApiClient gitHubApiClient = new GitHubApiClient(user, token);
 GetRepoInfoResponse repoInfo = gitHubApiClient.getRepoInfo("CSC109", "GitHubApiClient");
 repoInfo.printJson();
 ```
@@ -64,7 +66,7 @@ It isn't really that fun to do which is why this library abstracted as much of t
 Below will get the `description` field's value:
 
 ```java
-GitHubApiClient gitHubApiClient = new GitHubApiClient(username, password);
+GitHubApiClient gitHubApiClient = new GitHubApiClient(user, token);
 JsonObject repoInfo = gitHubApiClient.getRepoInfo("CSC109", "GitHubApiClient");
 String description = repoInfo.getJson().get("description").getAsString();
 System.out.println(description); // will print out "Client for easy calls to GitHub API"
@@ -72,7 +74,7 @@ System.out.println(description); // will print out "Client for easy calls to Git
 
 Below will get the `login` field's value (which is the user that created the repo):
 ```java
-GitHubApiClient gitHubApiClient = new GitHubApiClient(username, password);
+GitHubApiClient gitHubApiClient = new GitHubApiClient(user, token);
 JsonObject repoInfo = gitHubApiClient.getRepoInfo("CSC109", "GitHubApiClient");
 String login = repoInfo.getJson().get("owner").getAsJsonObject().get("login").getAsString();
 System.out.println(login); // will print out "CSC109"
@@ -80,7 +82,7 @@ System.out.println(login); // will print out "CSC109"
 
 ## Methods
 
-Note: "authenticated user" means the user whose username/password is used for the client object instance.
+Note: "authenticated user" means the GitHub user whose username/token is being supplied to the client object instance.
 
 ### Create Repo
 
