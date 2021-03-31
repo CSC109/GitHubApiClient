@@ -318,3 +318,36 @@ requestParams.addParam("bio", "I love cats");   // change user's bio to "I love 
 
 UpdateUserResponse updateUser = gitHubApiClient.updateUser(requestParams);
 ```
+
+### List Pull Requests
+
+This will get all pull requests in a repo.
+The owner of the repo and name of the repo must be supplied.
+
+```java
+ListPullRequestsResponse listPullRequestsResponse = gitHubApiClient.listPullRequests("CSC109", "GitHubApiClient", null);
+```
+
+There are a number of query parameters that can be used to narrow down which pull requests are returned.
+The most useful one is `state` which can be set to either "open", "closed", or "all".
+By default (if not specified), only open pull requests will be returned.
+Below is an example of returning all pull requests regardless of if they are open:
+
+```java
+QueryParams queryParams = new QueryParams();
+queryParams.addParam("state", "all");
+
+ListPullRequestsResponse listPullRequestsResponse = gitHubApiClient.listPullRequests("CSC109", "GitHubApiClient", queryParams);
+```
+
+### Get Pull Request
+
+This will return a particular pull request from a repo.
+The owner of the repo, name of the repo, and pull request number must be supplied.
+Pull request numbers start at 1.
+
+```java
+GetPullRequestResponse getPullRequestResponse = gitHubApiClient.getPullRequest("CSC109", "GitHubApiClient", 1);
+```
+
+Additional information is returned for each Pull Request from this method compared to what is returned from the [List Pull Requests](#list-pull-requests) method.

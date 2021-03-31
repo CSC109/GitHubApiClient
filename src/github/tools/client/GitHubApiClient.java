@@ -159,6 +159,20 @@ public class GitHubApiClient {
         Response response = HttpRequest.patch(endpoint, requestParams, basicAuth);
         return new UpdateUserResponse((JsonObject)response.getBody());
     }
+
+    // https://docs.github.com/en/rest/reference/pulls#list-pull-requests
+    public ListPullRequestsResponse listPullRequests(String repoOwner, String repoName, QueryParams queryParams) {
+        String endpoint = String.format("%s/repos/%s/%s/pulls", baseUrl, repoOwner, repoName);
+        Response response = HttpRequest.get(endpoint, queryParams, basicAuth);
+        return new ListPullRequestsResponse((JsonArray) response.getBody());
+    }
+
+    // https://docs.github.com/en/rest/reference/pulls#get-a-pull-request
+    public GetPullRequestResponse getPullRequest(String repoOwner, String repoName, int pullRequestNumber) {
+        String endpoint = String.format("%s/repos/%s/%s/pulls/%s", baseUrl, repoOwner, repoName, pullRequestNumber);
+        Response response = HttpRequest.get(endpoint, null, basicAuth);
+        return new GetPullRequestResponse((JsonObject) response.getBody());
+    }
 }
 
 
