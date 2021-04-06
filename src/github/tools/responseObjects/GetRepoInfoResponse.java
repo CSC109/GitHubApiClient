@@ -27,7 +27,11 @@ public class GetRepoInfoResponse extends ApiObjectResponse {
         ownerName = json.get("owner").getAsJsonObject().get("login").getAsString();
         ownerUrl = json.get("owner").getAsJsonObject().get("html_url").getAsString();
         isPrivate = json.get("private").getAsBoolean();
-        description = json.get("description").getAsString();
+        if (json.has("description") && !json.get("description").isJsonNull()) {
+            description = json.get("description").getAsString();
+        } else {
+            description = "";
+        }
         url = json.get("html_url").getAsString();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
         createdTimestamp = LocalDateTime.parse(json.get("created_at").getAsString(), formatter);
