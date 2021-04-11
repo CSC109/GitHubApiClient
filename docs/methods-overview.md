@@ -401,7 +401,7 @@ The file will contain the text "new file test" and the commit that is generated 
 
 This will update an existing file in a repo -- replace its current content (text) with new content.
 The owner of the repo, name of the repo, file path of the file to update, the branch name, the content of the file to replace what is currently there (text), and a commit message (since this automatically creates a commit).
-A valid existing file must be specified.
+A valid existing file path must be specified.
 
 ```java
 UpdateFileResponse updateFile = gitHubApiClient.updateFile("CSC109", GitHubApiClient, "src/git/tools/client/GitHubApiClient.java", "master", "replacement text", "updated GitHubApiClient.java file");
