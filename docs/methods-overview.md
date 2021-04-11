@@ -357,6 +357,7 @@ Additional information is returned for each Pull Request from this method compar
 This will return the contents of a directory in a repo.
 The owner of the repo, name of the repo, directory path, and branch name must be supplied.
 The directory path must be valid and must NOT begin with a leading `/` or end with a trailing `/`.
+To get the root directory, just pass an empty String in `""` for the directory path.
 
 ```java
 GetRepoDirectoryResponse getRepoDirectoryResponse = gitHubApiClient.getRepoDirectory("CSC109", "GitHubApiClient", "src/git/tools/client", "master");
