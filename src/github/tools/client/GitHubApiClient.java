@@ -4,6 +4,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import github.tools.responseObjects.*;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Base64;
+
 public class GitHubApiClient {
     private final String baseUrl = "https://api.github.com";
     private BasicAuth basicAuth;
@@ -172,6 +178,49 @@ public class GitHubApiClient {
         String endpoint = String.format("%s/repos/%s/%s/pulls/%s", baseUrl, repoOwner, repoName, pullRequestNumber);
         Response response = HttpRequest.get(endpoint, null, basicAuth);
         return new GetPullRequestResponse((JsonObject) response.getBody());
+    }
+
+    // https://docs.github.com/en/rest/reference/repos#get-repository-content
+    public GetRepoDirectoryResponse getRepoDirectory(String repoOwner, String repoName, String path) {
+        String endpoint = String.format("%s/repos/%s/%s/contents/%s", baseUrl, repoOwner, repoName, path);
+        Response response = HttpRequest.get(endpoint, null, basicAuth);
+        return new GetRepoDirectoryResponse((JsonArray) response.getBody());
+    }
+
+    // https://docs.github.com/en/rest/reference/repos#get-repository-content
+    public GetRepoFileResponse getRepoFile(String repoOwner, String repoName, String filePath) {
+        String endpoint = String.format("%s/repos/%s/%s/contents/%s", baseUrl, repoOwner, repoName, filePath);
+        Response response = HttpRequest.get(endpoint, null, basicAuth);
+        return new GetRepoFileResponse((JsonObject) response.getBody());
+    }
+
+    // https://docs.github.com/en/rest/reference/repos#get-repository-content
+    public ArrayList<RepoFileContent> getAllFilesInRepo(String repoOwner, String repoName) {
+        ArrayList<RepoFileContent> repoFiles = new ArrayList<>();
+        Queue<String> paths = new LinkedList<>();
+
+        paths.add("");
+        while (!paths.isEmpty()) {
+            GetRepoDirectoryResponse repoDirectoryResponse = getRepoDirectory(repoOwner, repoName, paths.poll());
+            for (int i = 0; i < repoDirectoryResponse.getRepoContent().size(); i++) {
+                RepoContent repoContent = repoDirectoryResponse.getRepoContent().get(i);
+                if (repoContent.getType().equals("file")) {
+                    GetRepoFileResponse repoFileResponse = getRepoFile(repoOwner, repoName, repoContent.getPath());
+
+                    repoFiles.add(new RepoFileContent(
+                            repoFileResponse.getFileName(),
+                            repoFileResponse.getFilePath(),
+                            repoFileResponse.getHash(),
+                            repoFileResponse.getText(),
+                            repoFileResponse.getSize(),
+                            repoFileResponse.getUrl()
+                    ));
+                } else if (repoContent.getType().equals("dir")) {
+                    paths.add(repoContent.getPath());
+                }
+            }
+        }
+        return repoFiles;
     }
 }
 
