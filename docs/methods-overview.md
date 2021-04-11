@@ -404,7 +404,7 @@ The owner of the repo, name of the repo, file path of the file to update, the br
 A valid existing file path must be specified.
 
 ```java
-UpdateFileResponse updateFile = gitHubApiClient.updateFile("CSC109", GitHubApiClient, "src/git/tools/client/GitHubApiClient.java", "master", "replacement text", "updated GitHubApiClient.java file");
+UpdateFileResponse updateFile = gitHubApiClient.updateFile("CSC109", "GitHubApiClient", "src/git/tools/client/GitHubApiClient.java", "master", "replacement text", "updated GitHubApiClient.java file");
 ``` 
 
 The above example will update an existing file named `GitHubApiClient.java` in the directory `src/git/tools/client` in the `master` branch.
