@@ -181,31 +181,35 @@ public class GitHubApiClient {
     }
 
     // https://docs.github.com/en/rest/reference/repos#get-repository-content
-    public GetRepoDirectoryResponse getRepoDirectory(String repoOwner, String repoName, String path) {
+    public GetRepoDirectoryResponse getRepoDirectory(String repoOwner, String repoName, String path, String branch) {
         String endpoint = String.format("%s/repos/%s/%s/contents/%s", baseUrl, repoOwner, repoName, path);
-        Response response = HttpRequest.get(endpoint, null, basicAuth);
+        QueryParams queryParams = new QueryParams();
+        queryParams.addParam("ref", branch);
+        Response response = HttpRequest.get(endpoint, queryParams, basicAuth);
         return new GetRepoDirectoryResponse((JsonArray) response.getBody());
     }
 
     // https://docs.github.com/en/rest/reference/repos#get-repository-content
-    public GetRepoFileResponse getRepoFile(String repoOwner, String repoName, String filePath) {
+    public GetRepoFileResponse getRepoFile(String repoOwner, String repoName, String filePath, String branch) {
         String endpoint = String.format("%s/repos/%s/%s/contents/%s", baseUrl, repoOwner, repoName, filePath);
-        Response response = HttpRequest.get(endpoint, null, basicAuth);
+        QueryParams queryParams = new QueryParams();
+        queryParams.addParam("ref", branch);
+        Response response = HttpRequest.get(endpoint, queryParams, basicAuth);
         return new GetRepoFileResponse((JsonObject) response.getBody());
     }
 
     // https://docs.github.com/en/rest/reference/repos#get-repository-content
-    public ArrayList<RepoFileContent> getAllFilesInRepo(String repoOwner, String repoName) {
+    public ArrayList<RepoFileContent> getAllFilesInRepo(String repoOwner, String repoName, String branch) {
         ArrayList<RepoFileContent> repoFiles = new ArrayList<>();
         Queue<String> paths = new LinkedList<>();
 
         paths.add("");
         while (!paths.isEmpty()) {
-            GetRepoDirectoryResponse repoDirectoryResponse = getRepoDirectory(repoOwner, repoName, paths.poll());
+            GetRepoDirectoryResponse repoDirectoryResponse = getRepoDirectory(repoOwner, repoName, paths.poll(), branch);
             for (int i = 0; i < repoDirectoryResponse.getRepoContent().size(); i++) {
                 RepoContent repoContent = repoDirectoryResponse.getRepoContent().get(i);
                 if (repoContent.getType().equals("file")) {
-                    GetRepoFileResponse repoFileResponse = getRepoFile(repoOwner, repoName, repoContent.getPath());
+                    GetRepoFileResponse repoFileResponse = getRepoFile(repoOwner, repoName, repoContent.getPath(), branch);
 
                     repoFiles.add(new RepoFileContent(
                             repoFileResponse.getFileName(),
@@ -221,6 +225,32 @@ public class GitHubApiClient {
             }
         }
         return repoFiles;
+    }
+
+    // https://docs.github.com/en/rest/reference/repos#create-or-update-file-contents
+    public CreateFileResponse createFile(String repoOwner, String repoName, String filePath, String branch, String fileText, String commitMessage) {
+        RequestParams requestParams = new RequestParams();
+        requestParams.addParam("branch", branch);
+        String contentBase64Encoded = Base64.getMimeEncoder().encodeToString(fileText.getBytes(StandardCharsets.UTF_8));
+        requestParams.addParam("content", contentBase64Encoded);
+        requestParams.addParam("message", commitMessage);
+        String endpoint = String.format("%s/repos/%s/%s/contents/%s", baseUrl, repoOwner, repoName, filePath);
+        Response response = HttpRequest.put(endpoint, requestParams, basicAuth);
+        return new CreateFileResponse((JsonObject) response.getBody());
+    }
+
+    // https://docs.github.com/en/rest/reference/repos#create-or-update-file-contents
+    public UpdateFileResponse updateFile(String repoOwner, String repoName, String filePath, String branch, String fileText, String commitMessage) {
+        RequestParams requestParams = new RequestParams();
+        requestParams.addParam("branch", branch);
+        String contentBase64Encoded = Base64.getMimeEncoder().encodeToString(fileText.getBytes(StandardCharsets.UTF_8));
+        requestParams.addParam("content", contentBase64Encoded);
+        requestParams.addParam("message", commitMessage);
+        GetRepoFileResponse getRepoFile = getRepoFile(repoOwner, repoName, filePath, branch);
+        requestParams.addParam("sha", getRepoFile.getHash());
+        String endpoint = String.format("%s/repos/%s/%s/contents/%s", baseUrl, repoOwner, repoName, filePath);
+        Response response = HttpRequest.put(endpoint, requestParams, basicAuth);
+        return new UpdateFileResponse((JsonObject) response.getBody());
     }
 }
 
