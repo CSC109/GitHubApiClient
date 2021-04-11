@@ -351,3 +351,61 @@ GetPullRequestResponse getPullRequestResponse = gitHubApiClient.getPullRequest("
 ```
 
 Additional information is returned for each Pull Request from this method compared to what is returned from the [List Pull Requests](#list-pull-requests) method.
+
+### Get Repo Directory Contents
+
+This will return the contents of a directory in a repo.
+The owner of the repo, name of the repo, directory path, and branch name must be supplied.
+The directory path must be valid and must NOT begin with a leading `/` or end with a trailing `/`.
+
+```java
+GetRepoDirectoryResponse getRepoDirectoryResponse = gitHubApiClient.getRepoDirectory("CSC109", "GitHubApiClient", "src/git/tools/client", "master");
+```
+
+The above example will return all directory/file contents in the directory `src/git/tools/client` of the repo in the `master` branch.
+
+### Get Repo File Content
+
+This will return info and the content of a file in a repo.
+The owner of the repo, name of the repo, file path, and branch name must be supplied.
+The file path must be valid and must NOT begin with a leading `/` or end with a trailing `/`.
+
+```java
+GetRepoFileResponse getRepoFileResponse = gitHubApiClient.getRepoFile("CSC109", "GitHubApiClient", "src/git/tools/client/GitHubApiClient.java", "master");
+```
+
+The above example will return all directory/file contents in the directory `src/git/tools/client/GitHubApiClient.java` of the repo in the `master` branch. 
+
+### Get All Files in Repo
+
+This will return a list of file info/content for all files in a repo.
+The owner of the repo, name of the repo, and branch name must be supplied.
+
+```java
+ArrayList<RepoFileContent> repoFileContent = gitHubApiClient.getAllFilesInRepo("CSC109", "GitHubApiClient", "master");
+```
+
+### Create File In Repo
+
+This will create a new file in a repo at a specified path.
+The owner of the repo, name of the repo, desired file path (includes the new file's name), the branch name, the content of the file (text), and a commit message (since this automatically creates a commit).
+
+```java
+CreateFileResponse createFile = gitHubApiClient.createFile("CSC109", "GitHubApiClient", "src/git/tools/client/testfile.java", "master", "new file test", "created a new file");
+```
+
+The above example will create a new file named `testfile.java` in the directory `src/git/tools/client` in the `master` branch.
+The file will contain the text "new file test" and the commit that is generated for this file creation will have the message "created a new file".
+
+### Update a File in Repo
+
+This will update an existing file in a repo -- replace its current content (text) with new content.
+The owner of the repo, name of the repo, file path of the file to update, the branch name, the content of the file to replace what is currently there (text), and a commit message (since this automatically creates a commit).
+A valid existing file must be specified.
+
+```java
+UpdateFileResponse updateFile = gitHubApiClient.updateFile("CSC109", GitHubApiClient, "src/git/tools/client/GitHubApiClient.java", "master", "replacement text", "updated GitHubApiClient.java file");
+``` 
+
+The above example will update an existing file named `GitHubApiClient.java` in the directory `src/git/tools/client` in the `master` branch.
+The file's content will be replaced with the text "replacement text" and the commit that is generated for this file creation will have the message "updated GitHubApiClient.java file".
