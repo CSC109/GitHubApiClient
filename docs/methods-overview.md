@@ -368,7 +368,7 @@ The above example will return all directory/file contents in the directory `src/
 
 This will return info and the content of a file in a repo.
 The owner of the repo, name of the repo, file path, and branch name must be supplied.
-The file path must be valid and must NOT begin with a leading `/` or end with a trailing `/`.
+The file path must be valid and must NOT begin with a leading `/`.
 
 ```java
 GetRepoFileResponse getRepoFileResponse = gitHubApiClient.getRepoFile("CSC109", "GitHubApiClient", "src/git/tools/client/GitHubApiClient.java", "master");
