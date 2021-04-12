@@ -268,6 +268,15 @@ The owner of the repo and name of the repo must be supplied.
 ListCommitsInRepoResponse commits = gitHubApiClient.listCommitsInRepo("CSC109", "GitHubApiClient", null); 
 ```
 
+By default, this will pull list all commits from the `master` branch. 
+If you want to specify a different branch, you can pass in a query param value for it like in the below example.
+
+```java
+QueryParams queryParams = new QueryParams();
+queryParams.addParam("sha", "your-branch-name");
+ListCommitsInRepoResponse commits = gitHubApiClient.listCommitsInRepo("CSC109", "GitHubApiClient", queryParams); 
+```
+
 ### Get Commit
 
 This will get info about a commit.
