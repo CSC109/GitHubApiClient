@@ -265,7 +265,7 @@ This will get all commits in a repo.
 The owner of the repo and name of the repo must be supplied.
 
 ```java
-ListCommitsInRepoResponse commits = gitHubApiClient.listCommitsInRepo("CSC109", "GitHubApiClient"); 
+ListCommitsInRepoResponse commits = gitHubApiClient.listCommitsInRepo("CSC109", "GitHubApiClient", null); 
 ```
 
 ### Get Commit
