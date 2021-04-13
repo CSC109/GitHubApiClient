@@ -243,7 +243,7 @@ public class GitHubApiClient {
     public UpdateFileResponse updateFile(String repoOwner, String repoName, String filePath, String branch, String fileText, String commitMessage) {
         RequestParams requestParams = new RequestParams();
         requestParams.addParam("branch", branch);
-        String contentBase64Encoded = Base64.getMimeEncoder().encodeToString(fileText.getBytes(StandardCharsets.UTF_8));
+        String contentBase64Encoded = Base64.getEncoder().encodeToString(fileText.getBytes(StandardCharsets.UTF_8));
         requestParams.addParam("content", contentBase64Encoded);
         requestParams.addParam("message", commitMessage);
         GetRepoFileResponse getRepoFile = getRepoFile(repoOwner, repoName, filePath, branch);
