@@ -154,7 +154,7 @@ Deletes a repo.
 The owner of the repo and name of the repo must be supplied.
 
 ```java
-DeleteRepoResponse deleteRepo = gitHubApiClient.deleteRepo("CSC109", GitHubApiClient");
+DeleteRepoResponse deleteRepo = gitHubApiClient.deleteRepo("CSC109", "GitHubApiClient");
 ```
 
 You are only allowed to update repos that the authenticated user owns.
@@ -167,7 +167,7 @@ Lists all contributors to a repo (e.g. anyone that's ever made a commit will sho
 The owner of the repo and name of the repo must be supplied.
 
 ```java
-ListRepoContributorsResponse contributors = gitHubApiClient.ListRepoContributorsResponse("CSC109", GitHubApiClient", null);
+ListRepoContributorsResponse contributors = gitHubApiClient.ListRepoContributorsResponse("CSC109", "GitHubApiClient", null);
 ```
 
 ### List Repos
